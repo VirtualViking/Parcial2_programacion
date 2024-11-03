@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/styles/index.css" rel="stylesheet">
+    <title>Sons of Anarchy</title>
+</head>
+<body>
+<th:block th:replace="fragments/nav :: nav"></th:block>
+
+<main>
+    <section class="row">
+        <div class="serie-info">
+            <img th:src="@{${serie.urlImage}}" alt="Serie Image">
+            <div class="col">
+                <h1 th:text="${serie.name}">Serie Name</h1>
+                    <p th:text="${serie.description}">Description</p>
+                    <p th:text="${serie.creatorName}">Creator Name</p>
+                    <p th:text="${serie.classification}">Classification</p>
+                    <p th:text="${serie.releaseDate}">Release Date</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="col-center">
+        <h1>Seasons</h1>
+        <div class="row">
+            <a th:each="season : ${serie.seasons}" class="season-card"  th:href="@{/serie/{serieId}/seasons/{seasonId}(seasonId=${season.id}, serieId=${serie.id})}">
+                <img th:src="@{${season.urlImage}}" alt="Season Image" class="season-card__image">
+                <h2 th:text="'Season: ' + ${season.number}">Season Name</h2>
+                <p class="season-card__description" th:text="'Release date: ' + ${season.releaseDate}">Release Date</p>
+            </a>
+        </div>
+    </section>
+
+    <section class="col-center">
+        <h1>Characters</h1>
+        <div class="row">
+            <div th:each="character : ${serie.characters}" class="character-card">
+                <img th:src="@{${character.urlImage}}" alt="Character Image" class="character-card__image">
+                <h3 class="character-card__name" th:text="${character.name}">Character Name</h3>
+                <p class="character-card__description" th:text="${character.description}">Description</p>
+            </div>
+        </div>
+    </section>
+
+    <th:block th:replace="fragments/footer :: footer"></th:block>
+
+</main>
+</body>
+</html>

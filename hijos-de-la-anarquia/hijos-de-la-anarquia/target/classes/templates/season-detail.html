@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/styles/index.css" rel="stylesheet">
+    <title>Season Detail</title>
+</head>
+<body>
+<th:block th:replace="fragments/nav :: nav"></th:block>
+
+<main>
+    <section>
+        <div class="season-info">
+            <h1 th:text="'Season: ' + ${season.number}">Season Number</h1>
+            <p th:text="'Release date: ' + ${season.releaseDate}">Release Date</p>
+            <img th:src="@{${season.urlImage}}" alt="Season Image" class="season-info__image">
+        </div>
+    </section>
+    <section>
+        <div class="col season-info__episodes">
+            <h1>Episodes</h1>
+            <ul class="col">
+                <li th:each="episode : ${season.episodes}" class="episode-card">
+                    <h3 th:text="${episode.name}" class="episode-card__name">Episode Name</h3>
+                    <p th:text="${episode.description}" class="episode-card__description">Episode Description</p>
+                    <div class="episode-images">
+                        <img th:each="url : ${episode.urlImages}" th:src="@{${url}}" alt="Episode Image" class="episode-image">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>
